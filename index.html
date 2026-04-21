@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gafar Adesina Adebola — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --clay: #C4622D;
+    --clay-light: #E8875A;
+    --clay-dark: #8B3E18;
+    --soil: #2C1810;
+    --bark: #4A2E1A;
+    --sand: #F2E8D9;
+    --sand-light: #FAF5EE;
+    --grass: #3D6B4F;
+    --gold: #D4A843;
+    --gold-light: #F0CC7A;
+    --white: #FEFCF8;
+    --gray: #8A7A6E;
+    --line: rgba(196,98,45,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand-light);
+    color: var(--soil);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--clay);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--clay);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  body:hover .cursor { transform: translate(-50%, -50%) scale(1); }
+  a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%, -50%) scale(2); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,245,238,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--clay-dark);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--bark); letter-spacing: 0.12em;
+    text-transform: uppercase; text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1.5px; background: var(--clay);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--clay); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(196,98,45,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(212,168,67,0.06) 0%, transparent 60%);
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem 3rem 4rem 4rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--clay);
+    margin-bottom: 1.5rem;
+  }
+  .hero-tag span { width: 30px; height: 1.5px; background: var(--clay); display: block; }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900; line-height: 1.0;
+    color: var(--soil);
+    margin-bottom: 0.3rem;
+  }
+  .hero-name em {
+    font-style: italic; color: var(--clay);
+  }
+  .hero-title {
+    font-size: 1.0rem; font-weight: 300; color: var(--gray);
+    margin-bottom: 2rem; line-height: 1.7;
+    max-width: 420px;
+  }
+  .hero-title strong { color: var(--bark); font-weight: 600; }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-bottom: 3rem;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--clay);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.7rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.85rem 2.2rem;
+    background: var(--clay); color: var(--white);
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+    border: none; border-radius: 2px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--clay-dark); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.85rem 2.2rem;
+    background: transparent; color: var(--clay);
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+    border: 1.5px solid var(--clay); border-radius: 2px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover { background: var(--clay); color: var(--white); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2; padding: 4rem 4rem 4rem 2rem;
+  }
+  .hero-visual {
+    width: 100%; max-width: 440px;
+    background: var(--bark);
+    border-radius: 4px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(196,98,45,0.3) 0%, transparent 70%);
+  }
+  .hero-visual-tag {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--clay-light); margin-bottom: 1.5rem; font-family: 'DM Mono', monospace;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .chip {
+    padding: 0.35rem 0.85rem;
+    background: rgba(196,98,45,0.15); color: var(--clay-light);
+    border: 1px solid rgba(196,98,45,0.3); border-radius: 2px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+  }
+  .chip.green { background: rgba(61,107,79,0.2); color: #7CB897; border-color: rgba(61,107,79,0.3); }
+  .chip.gold { background: rgba(212,168,67,0.15); color: var(--gold-light); border-color: rgba(212,168,67,0.25); }
+  .hero-contact { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.78rem; color: rgba(255,255,255,0.5);
+    margin-bottom: 0.6rem; font-family: 'DM Mono', monospace;
+  }
+  .contact-item svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; }
+
+  /* SECTION BASE */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--clay);
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: ''; width: 20px; height: 1.5px; background: var(--clay);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; color: var(--soil);
+    line-height: 1.1; margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text p {
+    font-size: 1.0rem; line-height: 1.85; color: var(--bark);
+    margin-bottom: 1.2rem; font-weight: 300;
+  }
+  .about-text p strong { color: var(--clay); font-weight: 600; }
+  .about-badges { display: flex; flex-direction: column; gap: 1rem; }
+  .badge {
+    display: flex; align-items: flex-start; gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    border-left: 3px solid var(--clay);
+    background: var(--sand-light);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .badge:hover { border-color: var(--gold); background: var(--sand); }
+  .badge-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .badge-title { font-weight: 600; font-size: 0.88rem; color: var(--soil); margin-bottom: 0.25rem; }
+  .badge-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--sand-light); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 180px; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--clay), transparent);
+  }
+  .timeline-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 0; margin-bottom: 0;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateY(0); }
+  .timeline-date {
+    padding: 2rem 2rem 2rem 0;
+    text-align: right;
+    position: relative;
+  }
+  .timeline-date::after {
+    content: ''; position: absolute;
+    right: -5px; top: 2.4rem;
+    width: 9px; height: 9px;
+    background: var(--clay); border-radius: 50%;
+    border: 2px solid var(--sand-light);
+  }
+  .date-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem; font-weight: 700; color: var(--clay);
+    display: block;
+  }
+  .date-range { font-size: 0.68rem; color: var(--gray); font-family: 'DM Mono', monospace; margin-top: 0.2rem; }
+  .timeline-content {
+    padding: 1.5rem 0 2.5rem 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline-item:last-child .timeline-content { border-bottom: none; }
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700; color: var(--soil);
+    margin-bottom: 0.2rem;
+  }
+  .job-org {
+    font-size: 0.82rem; font-weight: 600; color: var(--clay);
+    letter-spacing: 0.05em; margin-bottom: 0.2rem;
+  }
+  .job-loc { font-size: 0.75rem; color: var(--gray); margin-bottom: 1rem; }
+  .job-bullets { list-style: none; }
+  .job-bullets li {
+    font-size: 0.85rem; line-height: 1.7; color: var(--bark);
+    padding-left: 1.2rem; margin-bottom: 0.4rem; position: relative;
+    font-weight: 300;
+  }
+  .job-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--clay); font-size: 0.75rem; line-height: 1.9;
+  }
+  .job-bullets li strong { color: var(--clay-dark); font-weight: 600; }
+
+  /* SKILLS */
+  #skills { background: var(--soil); color: var(--sand); }
+  #skills .section-title { color: var(--sand); }
+  #skills .section-label { color: var(--clay-light); }
+  #skills .section-label::before { background: var(--clay-light); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .skill-category {
+    background: rgba(255,255,255,0.03);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .skill-category::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--clay), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .skill-category:hover { background: rgba(196,98,45,0.08); }
+  .skill-category:hover::before { transform: scaleX(1); }
+  .skill-cat-title {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--clay-light); margin-bottom: 1.2rem; font-weight: 600;
+  }
+  .skill-bars { display: flex; flex-direction: column; gap: 0.8rem; }
+  .skill-bar-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .skill-bar-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); display: flex; justify-content: space-between; }
+  .skill-bar-label span { color: var(--clay-light); font-family: 'DM Mono', monospace; font-size: 0.68rem; }
+  .skill-bar-track {
+    height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--clay), var(--gold));
+    border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .project-card {
+    background: var(--sand-light); border: 1px solid var(--line);
+    padding: 2rem; position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .project-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(196,98,45,0.04), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: var(--clay); box-shadow: 0 12px 40px rgba(196,98,45,0.12); }
+  .project-card:hover::after { opacity: 1; }
+  .project-number {
+    font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900;
+    color: rgba(196,98,45,0.08); position: absolute; top: 0.5rem; right: 1.5rem;
+    line-height: 1; user-select: none;
+  }
+  .project-tag {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--clay); font-weight: 600; margin-bottom: 0.8rem;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
+    color: var(--soil); margin-bottom: 0.7rem; line-height: 1.3;
+  }
+  .project-desc { font-size: 0.83rem; line-height: 1.75; color: var(--bark); font-weight: 300; margin-bottom: 1.2rem; }
+  .project-metrics { display: flex; gap: 1.5rem; }
+  .metric { display: flex; flex-direction: column; }
+  .metric-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--clay); }
+  .metric-key { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); }
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--sand-light); }
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .cert-card {
+    padding: 1.5rem; background: var(--white);
+    border: 1px solid var(--line); border-bottom: 3px solid transparent;
+    transition: border-bottom-color 0.25s, transform 0.25s;
+  }
+  .cert-card:hover { border-bottom-color: var(--clay); transform: translateY(-3px); }
+  .cert-year {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--clay); margin-bottom: 0.5rem;
+  }
+  .cert-name { font-size: 0.82rem; font-weight: 600; color: var(--soil); margin-bottom: 0.3rem; line-height: 1.4; }
+  .cert-issuer { font-size: 0.72rem; color: var(--gray); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bark);
+    padding: 6rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  #contact .section-title { color: var(--sand); margin-bottom: 1.5rem; }
+  #contact .section-label { color: var(--clay-light); }
+  #contact .section-label::before { background: var(--clay-light); }
+  .contact-text { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.5); font-weight: 300; margin-bottom: 2rem; }
+  .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+  }
+  .contact-detail-icon {
+    width: 36px; height: 36px; border: 1px solid rgba(196,98,45,0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--clay-light); flex-shrink: 0; font-size: 0.9rem;
+  }
+  .contact-form-side { display: flex; flex-direction: column; gap: 1rem; }
+  .form-field {
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .form-field label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .form-field input, .form-field textarea {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.85rem 1rem; color: var(--sand); font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; outline: none; border-radius: 2px;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--clay); }
+  .form-field textarea { resize: vertical; min-height: 100px; }
+  .send-btn {
+    padding: 1rem 2.5rem; background: var(--clay); color: var(--white);
+    border: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer; border-radius: 2px;
+    transition: background 0.25s, transform 0.2s; align-self: flex-start;
+  }
+  .send-btn:hover { background: var(--clay-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--soil); padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--clay); }
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.25); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* HERO ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.35s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.5s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.65s; }
+  .hero-right { animation: slideIn 1s ease 0.4s both; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-visual { animation: float 6s ease-in-out infinite; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, #contact { grid-template-columns: 1fr; gap: 2.5rem; }
+    .timeline::before { left: 0; }
+    .timeline-item { grid-template-columns: 1fr; }
+    .timeline-date { text-align: left; padding: 1.5rem 0 0.5rem; }
+    .timeline-date::after { display: none; }
+    .timeline-content { padding: 0 0 2rem; }
+    .skills-grid, .certs-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">GAA.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="hero-tag"><span></span>Digital Agriculture Professional</div>
+    <h1 class="hero-name">Gafar<br><em>Adesina</em><br>Adebola</h1>
+    <p class="hero-title">
+      <strong>Dual-qualified</strong> in Plant Breeding &amp; Computer Science · <strong>8+ years</strong> shaping digital agriculture, M&amp;E, and value chain development across Nigeria and Kenya.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">120K+</span>
+        <span class="stat-label">Farmers Onboarded</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">200+</span>
+        <span class="stat-label">Agents Trained</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">80K+</span>
+        <span class="stat-label">Beneficiaries Tracked</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-visual-tag">// Core competencies</div>
+      <div class="skill-chips">
+        <span class="chip">M&amp;E Frameworks</span>
+        <span class="chip">Digital Agriculture</span>
+        <span class="chip green">GIZ · IITA · SAPZ</span>
+        <span class="chip gold">Power BI</span>
+        <span class="chip">FarmerChat AI</span>
+        <span class="chip gold">Python · R</span>
+        <span class="chip green">Value Chains</span>
+        <span class="chip">KoboCollect</span>
+        <span class="chip">Stakeholder Mgmt</span>
+        <span class="chip green">AKILIMO Tools</span>
+        <span class="chip gold">Tableau</span>
+        <span class="chip">Gender Mainstreaming</span>
+      </div>
+      <div class="hero-contact">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          gafaradesina2@gmail.com
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +234 817 904 0379
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Abuja, Nigeria
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Bridging Technology &amp; Agriculture</h2>
+      <p>I am a <strong>dual-qualified professional</strong> with a Post-Graduate Diploma in Plant Breeding &amp; Seed Technology and an HND in Computer Science — a rare combination that lets me operate credibly at the intersection of agronomy and data systems.</p>
+      <p>Over 8 years, I've worked with <strong>GIZ, IITA, Digital Green</strong>, and other development organisations to design M&amp;E frameworks, deploy digital agricultural tools, and train thousands of extension agents and farmers across Nigeria and Kenya.</p>
+      <p>I am <strong>UN Women certified</strong> in gender mainstreaming and have led donor-funded programmes under SAPZ, ACAI, and GIZ-GIAE, consistently delivering above-target results while maintaining rigorous data quality standards.</p>
+    </div>
+    <div class="about-badges reveal reveal-delay-2">
+      <div class="badge">
+        <span class="badge-icon">🌾</span>
+        <div>
+          <div class="badge-title">Digital Agriculture &amp; Extension</div>
+          <div class="badge-desc">Deployed FarmerChat &amp; AKILIMO tools; trained 200+ extension agents on GAP, FBS, CBS, MOET, and Contract Farming across 20 LGAs.</div>
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">📊</span>
+        <div>
+          <div class="badge-title">M&amp;E &amp; Data Analytics</div>
+          <div class="badge-desc">Designed and managed M&amp;E frameworks for 80,000+ beneficiaries using Python, R, Power BI, Tableau, KoboCollect, and SPSS.</div>
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🤝</span>
+        <div>
+          <div class="badge-title">Stakeholder &amp; Partnership Management</div>
+          <div class="badge-desc">Signed 3 post-project MOUs; coordinated across GIZ, state PIUs, ADPs, NGOs, and 118+ field extension agents.</div>
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">⚧</span>
+        <div>
+          <div class="badge-title">Gender Mainstreaming</div>
+          <div class="badge-desc">UN Women certified; integrates gender-sensitive approaches into programme design, M&amp;E tools, and training delivery.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career Journey</div>
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2025–26</span>
+        <span class="date-range">Oct 2025 – Mar 2026</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">State Coordinator</div>
+        <div class="job-org">Digital Green — SAPZ Programme</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Led onboarding of <strong>12,000 farmers</strong> onto FarmerChat — 15% above target — in 4 months with 98% data accuracy.</li>
+          <li>Recruited and trained <strong>100 Extension Agents</strong> across all 20 LGAs; post-training scores improved by 90%.</li>
+          <li>Organised <strong>25 field demonstrations</strong> reaching 8,000 farmers; boosted digital tool adoption by 40%.</li>
+          <li>Processed ₦24M in EA performance bonuses with zero errors; resolved 300+ support requests within 48 hours.</li>
+          <li>Signed <strong>3 MOUs</strong> with ADP, youth groups, and private extension providers for post-project sustainability.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2025</span>
+        <span class="date-range">Aug – Sept 2025</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">Enumerator Officer</div>
+        <div class="job-org">GIZ-AgFin</div>
+        <div class="job-loc">📍 Ibadan, Oyo State</div>
+        <ul class="job-bullets">
+          <li>Achieved <strong>95% response rate</strong> across MAT beneficiaries in 3 LGAs in Oyo State.</li>
+          <li>Used KoboCollect for digital data collection; reduced error rates by <strong>30%</strong> vs. prior project cycles.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2024</span>
+        <span class="date-range">May – Nov 2024</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">Consultant, M&amp;E Officer</div>
+        <div class="job-org">AKILIMO Nigeria Association (IITA-ACAI Funded)</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Raised digital literacy by <strong>65%</strong> through pre/post-tested training for farmers and agri-practitioners.</li>
+          <li>Drove tool adoption up by <strong>40%</strong>; contributed 3 rounds of user feedback that led to actual AKILIMO tool improvements.</li>
+          <li>Represented ANA Tech Team at the ACAI deployment in <strong>Nairobi, Kenya</strong> (Aug 2023).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2022–24</span>
+        <span class="date-range">Feb 2022 – Jan 2024</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">Monitoring &amp; Evaluation Officer</div>
+        <div class="job-org">GIZ-GIAE / GOPA-AFC — Cassava Value Chain</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Led M&amp;E frameworks tracking <strong>80,000+ beneficiaries</strong> across Ogun and Oyo States.</li>
+          <li>Co-facilitated GAP, FBS, CBS, CF, MOET &amp; OD training reaching <strong>4,500+ extension professionals</strong>.</li>
+          <li>Managed a field team of <strong>118 extension agents</strong> and 85 enumerators — zero missed reporting deadlines in two years.</li>
+          <li>M&amp;E inputs improved project accountability by approximately <strong>25%</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2019–22</span>
+        <span class="date-range">Mar 2019 – Jan 2022</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">Junior M&amp;E Assistant</div>
+        <div class="job-org">GIZ-GIAE / GOPA-AFC — Cassava Value Chain</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Identified data trends that led the project to pivot strategy, saving resources in the value chain programme.</li>
+          <li>Cut duplicate/incomplete data entries by <strong>35%</strong> through EA data verification and follow-up.</li>
+          <li>Coordinated 15+ M&amp;E events with 300+ participants.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2016–19</span>
+        <span class="date-range">Sept 2016 – Mar 2019</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">M&amp;E Intern</div>
+        <div class="job-org">GIZ-GIAE — Cassava Value Chain</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Gained foundational expertise in M&amp;E data collection, entry, analysis, and documentation.</li>
+          <li>Supported coordination of M&amp;E events, scheduling, logistics, and project knowledge sharing.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span class="date-year">2013–16</span>
+        <span class="date-range">Jan 2013 – Sept 2016</span>
+      </div>
+      <div class="timeline-content">
+        <div class="job-title">Data / IT Administrator</div>
+        <div class="job-org">Get-IT Consultant Agency</div>
+        <div class="job-loc">📍 Abeokuta, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Managed hardware/software infrastructure, web applications, system administration, and data security measures.</li>
+          <li>Contributed to ICT strategy development aligning technology with business goals.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">Skills &amp; Expertise</h2>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <div class="skill-cat-title">Data &amp; Analytics</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Python <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Power BI <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">R / SPSS / Stata <span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Tableau <span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="83"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Excel <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">M&amp;E &amp; Programme</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">M&amp;E Framework Design <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">KoboCollect / ODK <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="93"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Project Implementation <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Stakeholder Engagement <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="97"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Report Writing <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="96"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">Digital Agriculture</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">FarmerChat AI Tools <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">AKILIMO Platform <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="93"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Extension Training (GAP/FBS) <span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="97"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Value Chain Development <span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">Gender Mainstreaming <span>Certified</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Key Achievements</div>
+  <h2 class="section-title">Flagship Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <div class="project-tag">Digital Green · SAPZ · 2025–26</div>
+      <div class="project-title">FarmerChat AI Farmer Onboarding</div>
+      <p class="project-desc">Coordinated the onboarding of farmers across food production value chains in south-west Nigeria onto the FarmerChat AI platform, surpassing targets while maintaining near-perfect data integrity through rigorous double-check validation systems.</p>
+      <div class="project-metrics">
+        <div class="metric"><span class="metric-val">12,000</span><span class="metric-key">Farmers Onboarded</span></div>
+        <div class="metric"><span class="metric-val">+15%</span><span class="metric-key">Above Target</span></div>
+        <div class="metric"><span class="metric-val">98%</span><span class="metric-key">Data Accuracy</span></div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-number">02</div>
+      <div class="project-tag">GIZ-GIAE · 2022–2024</div>
+      <div class="project-title">Cassava Value Chain M&amp;E System</div>
+      <p class="project-desc">Designed and maintained comprehensive M&amp;E frameworks for the cassava value chain programme, tracking 80,000+ beneficiaries across Ogun and Oyo States. Delivered impactful reports that influenced GIZ's decision to fund the next programme phase.</p>
+      <div class="project-metrics">
+        <div class="metric"><span class="metric-val">80K+</span><span class="metric-key">Beneficiaries</span></div>
+        <div class="metric"><span class="metric-val">25%</span><span class="metric-key">Accountability ↑</span></div>
+        <div class="metric"><span class="metric-val">0</span><span class="metric-key">Missed Deadlines</span></div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-number">03</div>
+      <div class="project-tag">IITA-ACAI · 2023–2024</div>
+      <div class="project-title">AKILIMO Digital Tool Deployment</div>
+      <p class="project-desc">Drove adoption of AKILIMO agricultural decision-support tools across south-west Nigeria and represented the AKILIMO Nigeria Association Tech Team at the ACAI project deployment in Nairobi, Kenya. Directly contributed feedback that shaped tool improvements.</p>
+      <div class="project-metrics">
+        <div class="metric"><span class="metric-val">40%</span><span class="metric-key">Adoption Increase</span></div>
+        <div class="metric"><span class="metric-val">65%</span><span class="metric-key">Digital Literacy ↑</span></div>
+        <div class="metric"><span class="metric-val">🇳🇬🇰🇪</span><span class="metric-key">2 Countries</span></div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-3">
+      <div class="project-number">04</div>
+      <div class="project-tag">AKILIMO / CDF · 2024</div>
+      <div class="project-title">CASSAPP24 Real-Time Tracking System</div>
+      <p class="project-desc">Partnered with the Christian Development Foundation and AKILIMO Nigeria Association to develop a real-time cassava stem distribution tracking system. Achieved 100% stakeholder participation and full integration across the supply chain.</p>
+      <div class="project-metrics">
+        <div class="metric"><span class="metric-val">100%</span><span class="metric-key">Stakeholder Buy-in</span></div>
+        <div class="metric"><span class="metric-val">Real-time</span><span class="metric-key">Data Pipeline</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications &amp; Training</h2>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-year">2025</div>
+      <div class="cert-name">Achieving Market Access for Plants &amp; Plant Products</div>
+      <div class="cert-issuer">FAO</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-year">2025</div>
+      <div class="cert-name">WTO Agreement on Agriculture</div>
+      <div class="cert-issuer">FAO</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-year">2024</div>
+      <div class="cert-name">I Know Gender 4: Women's Economic Empowerment</div>
+      <div class="cert-issuer">UN Women</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-year">2024</div>
+      <div class="cert-name">I Know Gender 1–2–3: Gender Concepts, Frameworks &amp; UN System</div>
+      <div class="cert-issuer">UN Women</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-year">2022</div>
+      <div class="cert-name">Data Analysis with Python</div>
+      <div class="cert-issuer">Cognitive Class</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-year">2022</div>
+      <div class="cert-name">Data Visualization with Python</div>
+      <div class="cert-issuer">Cognitive Class</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-year">2022</div>
+      <div class="cert-name">Data Analytics Essentials with Power BI</div>
+      <div class="cert-issuer">Udemy</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-year">2022</div>
+      <div class="cert-name">CISSP — Information Systems Security Professional</div>
+      <div class="cert-issuer">Alison Academy</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-year">2020</div>
+      <div class="cert-name">Compliance, Integrity &amp; Anti-Corruption</div>
+      <div class="cert-issuer">GOPA Group</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-year">2020</div>
+      <div class="cert-name">National Youth Service Corps (NYSC)</div>
+      <div class="cert-issuer">Federal Republic of Nigeria</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-year">2020</div>
+      <div class="cert-name">OCR, Data Collection Tools &amp; Quality Control</div>
+      <div class="cert-issuer">AFCi</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-year">—</div>
+      <div class="cert-name">Tableau Data Analysis &amp; Visualization</div>
+      <div class="cert-issuer">GreatLearning</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title" style="color:var(--sand)">Get In Touch</h2>
+    <p class="contact-text">Open to consulting engagements, programme roles, and collaborative development projects in digital agriculture, M&amp;E, and value chain development.</p>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉</div>
+        gafaradesina2@gmail.com
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📞</div>
+        +234 817 904 0379
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        Abuja, Nigeria
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🌐</div>
+        Available for Nigeria &amp; International Roles
+      </div>
+    </div>
+  </div>
+  <div class="contact-form-side reveal">
+    <div class="form-field">
+      <label>Your Name</label>
+      <input type="text" placeholder="e.g. Jane Doe" />
+    </div>
+    <div class="form-field">
+      <label>Email</label>
+      <input type="email" placeholder="jane@organisation.org" />
+    </div>
+    <div class="form-field">
+      <label>Subject</label>
+      <input type="text" placeholder="Collaboration / Opportunity / Inquiry" />
+    </div>
+    <div class="form-field">
+      <label>Message</label>
+      <textarea placeholder="Tell me about the opportunity..."></textarea>
+    </div>
+    <button class="send-btn" onclick="handleSend()">Send Message →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Gafar Adesina Adebola</span>
+  <span class="footer-copy">© 2026 · Digital Agriculture · M&amp;E · Data Analytics · Nigeria</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // Skill bars
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-grid').forEach(el => barObserver.observe(el));
+
+  // Send button
+  function handleSend() {
+    const btn = document.querySelector('.send-btn');
+    btn.textContent = '✓ Sent Successfully';
+    btn.style.background = '#3D6B4F';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 50 ? '0 4px 30px rgba(44,24,16,0.12)' : 'none';
+  });
+</script>
+</body>
+</html>
