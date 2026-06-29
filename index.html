@@ -154,21 +154,43 @@
   .focus-item:hover{border-color:var(--gold);transform:translateY(-4px);background:var(--gold-tint);}
   .focus-item svg{width:24px;height:24px;}
 
-  /* ===== EXPERIENCE TIMELINE — alternating ===== */
-  .timeline{position:relative;margin-top:30px;}
-  .timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:repeating-linear-gradient(to bottom, var(--gold) 0 8px, transparent 8px 16px);transform:translateX(-1px);}
-  .tl-row{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:8px;}
-  .tl-node{width:18px;height:18px;border-radius:50%;background:var(--white);border:3px solid var(--green-deep);margin:0 auto;position:relative;z-index:2;}
-  .tl-row:nth-child(odd) .tl-node{border-color:var(--gold);}
-  .tl-card{border:1px solid var(--gray-line);border-radius:10px;padding:24px 26px;background:var(--white);transition:box-shadow .3s ease, transform .3s ease;}
-  .tl-card:hover{box-shadow:0 22px 40px -28px rgba(0,40,0,.28);transform:translateY(-3px);}
-  .tl-row:nth-child(odd){direction:rtl;}
-  .tl-row:nth-child(odd) .tl-card{direction:ltr;}
-  .tl-row > div:nth-child(1):empty, .tl-row > div:nth-child(3):empty{visibility:hidden;}
-  .tl-period{font-family:var(--mono);font-size:11.5px;color:var(--gold-deep);letter-spacing:.05em;margin-bottom:6px;display:block;font-weight:700;}
-  .tl-role{font-family:var(--display);font-size:19px;color:var(--green-deep);font-weight:600;}
-  .tl-org{font-size:12.5px;color:var(--gray-mid);font-weight:600;margin-top:3px;display:block;}
-  .tl-desc{margin-top:10px;font-size:13.8px;}
+  /* ===== EXPERIENCE ACCORDION ===== */
+  .exp-list{display:flex;flex-direction:column;gap:16px;margin-top:30px;}
+  .exp-item{
+    border:1px solid var(--gray-line);border-radius:10px;background:var(--white);overflow:hidden;
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .exp-item:hover{border-color:var(--gold);box-shadow:0 18px 36px -28px rgba(0,40,0,.25);}
+  .exp-item[open]{border-color:var(--gold);box-shadow:0 22px 44px -26px rgba(0,40,0,.3);}
+  .exp-item summary{
+    list-style:none;cursor:pointer;padding:24px 26px;display:grid;grid-template-columns:130px 1fr 40px;
+    gap:20px;align-items:center;
+  }
+  .exp-item summary::-webkit-details-marker{display:none;}
+  .exp-num{font-family:var(--mono);font-size:11px;color:var(--white);background:var(--green-deep);
+    width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .exp-period{font-family:var(--mono);font-size:11.5px;color:var(--gold-deep);letter-spacing:.04em;font-weight:700;display:flex;flex-direction:column;gap:8px;}
+  .exp-titles .exp-role{font-family:var(--display);font-size:19px;color:var(--green-deep);font-weight:600;display:block;}
+  .exp-titles .exp-org{font-size:12.5px;color:var(--gray-mid);font-weight:600;margin-top:3px;display:block;}
+  .exp-chevron{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--gray-line);display:flex;align-items:center;justify-content:center;transition:transform .3s ease, border-color .3s ease, background .3s ease;flex:none;margin-left:auto;}
+  .exp-item[open] .exp-chevron{transform:rotate(45deg);background:var(--gold);border-color:var(--gold);}
+  .exp-chevron svg{width:14px;height:14px;stroke:var(--green-deep);}
+  .exp-body{padding:0 26px 28px 26px;border-top:1px solid var(--gray-line);margin-top:2px;}
+  .exp-sub{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-mid);font-weight:700;margin:22px 0 12px;}
+  .exp-sub:first-of-type{margin-top:22px;}
+  .exp-bullets{display:flex;flex-direction:column;gap:14px;}
+  .exp-bullet{display:grid;grid-template-columns:22px 1fr;gap:10px;}
+  .exp-bullet .b-ic{width:22px;height:22px;border-radius:50%;background:var(--green-tint);display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;}
+  .exp-bullet .b-ic svg{width:11px;height:11px;stroke:var(--green-deep);}
+  .exp-bullet .b-task{font-size:14px;font-weight:600;color:var(--gray);}
+  .exp-bullet .b-result{font-size:13.5px;color:var(--gray-mid);margin-top:4px;}
+  .exp-bullet.is-achv .b-ic{background:var(--gold-tint);}
+  .exp-bullet.is-achv .b-ic svg{stroke:var(--gold-deep);}
+  @media (max-width:700px){
+    .exp-item summary{grid-template-columns:1fr 40px;}
+    .exp-period{grid-row:1;flex-direction:row;gap:10px;align-items:center;}
+    .exp-num{display:none;}
+  }
 
   /* ===== PROJECTS ===== */
   .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -395,42 +417,161 @@
       <h2>Eight years building from the field upward</h2>
       <p style="margin-top:14px">A track record across GIZ, IITA, Digital Green, and independent consulting — each role widening the lens from field data collection to digital systems leadership.</p>
     </div>
-    <div class="timeline">
-      <div class="tl-row reveal">
-        <div class="tl-card"><span class="tl-period">Oct 2025 – Mar 2026</span><h3 class="tl-role">Independent Consultant</h3><span class="tl-org">Digital Green · Abeokuta, Ogun State</span><p class="tl-desc">Advisory support on digital tool deployment and farmer onboarding strategy across food production value chains in south‑west Nigeria.</p></div>
-        <div class="tl-node"></div>
-        <div></div>
-      </div>
-      <div class="tl-row reveal">
-        <div></div>
-        <div class="tl-node"></div>
-        <div class="tl-card"><span class="tl-period">Aug 2025 – Sep 2025</span><h3 class="tl-role">Enumerator Officer</h3><span class="tl-org">GIZ‑AgFin · Ibadan, Oyo State</span><p class="tl-desc">Engaged MAT beneficiaries across three LGAs in Oyo State, achieving a 95% interview response rate; used KoboCollect for accurate field data capture and cut error rates by 30% through rigorous review.</p></div>
-      </div>
-      <div class="tl-row reveal">
-        <div class="tl-card"><span class="tl-period">May 2024 – Nov 2024</span><h3 class="tl-role">Consultant, M&amp;E Officer</h3><span class="tl-org">AKILIMO Nigeria Association (IITA‑ACAI Funded) · Abeokuta, Ogun State</span><p class="tl-desc">Coordinated onboarding of 12,000 farmers onto FarmerChat (15% above target), recruited and trained 100 Extension Agents across 20 LGAs, and ran field demonstrations lifting tool adoption by 40%.</p></div>
-        <div class="tl-node"></div>
-        <div></div>
-      </div>
-      <div class="tl-row reveal">
-        <div></div>
-        <div class="tl-node"></div>
-        <div class="tl-card"><span class="tl-period">Feb 2022 – Jan 2024</span><h3 class="tl-role">Monitoring &amp; Evaluation Officer</h3><span class="tl-org">GIZ Green Innovation Programme (GIAE) under GOPA‑AFC, Cassava Value Chain</span><p class="tl-desc">Led M&amp;E frameworks tracking 80,000+ beneficiaries across Ogun and Oyo States; led a team of 118 extension agents and 85 enumerators without missing a reporting deadline in two years.</p></div>
-      </div>
-      <div class="tl-row reveal">
-        <div class="tl-card"><span class="tl-period">Mar 2019 – Jan 2022</span><h3 class="tl-role">Junior Assistant, M&amp;E</h3><span class="tl-org">GIZ Green Innovation Programme (GIAE) under GOPA‑AFC</span><p class="tl-desc">Built data collection strategies, co‑facilitated capacity‑building workshops reaching 4,500+ extension officers, and contributed M&amp;E input that improved project accountability by roughly 25%.</p></div>
-        <div class="tl-node"></div>
-        <div></div>
-      </div>
-      <div class="tl-row reveal">
-        <div></div>
-        <div class="tl-node"></div>
-        <div class="tl-card"><span class="tl-period">Sep 2016 – Mar 2019</span><h3 class="tl-role">M&amp;E Intern</h3><span class="tl-org">GIZ Green Innovation Programme (GIAE), Cassava Value Chain</span><p class="tl-desc">Gained foundational M&amp;E expertise through hands‑on data collection, entry and analysis, and supported documentation of project achievements and lessons learned.</p></div>
-      </div>
-      <div class="tl-row reveal">
-        <div class="tl-card"><span class="tl-period">Jan 2013 – Sep 2016</span><h3 class="tl-role">Data / IT Administrator</h3><span class="tl-org">Get‑IT Consultant Agency · Abeokuta, Ogun State</span><p class="tl-desc">Managed hardware/software infrastructure and system administration, and contributed to ICT strategy aligning technology with business goals.</p></div>
-        <div class="tl-node"></div>
-        <div></div>
-      </div>
+    <p class="reveal" style="text-align:center;font-family:var(--mono);font-size:12px;color:var(--gray-mid);margin-bottom:-10px;">Click any role to expand full responsibilities &amp; achievements ↓</p>
+    <div class="exp-list">
+
+      <details class="exp-item reveal" open>
+        <summary>
+          <div class="exp-num">01</div>
+          <div class="exp-titles">
+            <span class="exp-role">Independent Consultant</span>
+            <span class="exp-org">Digital Green (SAPZ Project) · Abeokuta, Ogun State</span>
+          </div>
+          <span class="exp-period">Oct 2025 – Mar 2026</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Acted as the main focal contact between SAPZ Ogun State PIU, Digital Green, and other partners.</div><div class="b-result">Kept more than 20 groups aligned, solved most issues within 24 hours, and made sure all 15 project activities matched state and SAPZ goals with no budget problems.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Led the onboarding of 12,000 farmers onto FarmerChat — 15% above target, finished in 4 months.</div><div class="b-result">Handled all data collection and validation, got 98% accuracy through double‑checks, and pushed 11,800 verified profiles to the SAPZ platform ahead of schedule.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Recruited 100 Extension Agents and Farmer Champions across all 20 LGAs in 6 weeks.</div><div class="b-result">Ran 4 Training‑of‑Trainer sessions for 50 PIU staff (post‑training scores up 90%); helped those EAs train 12,000 farmers, with 87% still using digital tools after 3 months.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Organized 25 field demonstrations in 15 locations, reaching 8,000 farmers.</div><div class="b-result">Boosted tool adoption by 40%; produced and distributed 15,000 training materials (manuals, flyers, quick guides) in English and Yoruba.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Held 12 sensitization meetings with State Project Coordinators, PIU, and MEL teams.</div><div class="b-result">Got full buy‑in with zero rollout resistance; built relationships with ADP, youth groups, private extension providers and cluster managers, signing 3 MOUs for post‑project sustainability.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Tracked EA performance with a simple weekly dashboard.</div><div class="b-result">All 100 EAs hit monthly targets (30% exceeded by 20%+); processed ₦24 million in performance bonuses over 3 months with zero errors, and answered 300+ technical support requests usually within 48 hours.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">02</div>
+          <div class="exp-titles">
+            <span class="exp-role">Enumerator Officer</span>
+            <span class="exp-org">GIZ‑AgFin · Ibadan, Oyo State</span>
+          </div>
+          <span class="exp-period">Aug 2025 – Sep 2025</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Completed GIZ's 3‑day intensive training on survey administration, digital data collection, and fieldwork standards.</div><div class="b-result">Came out ready to work in real field conditions.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Reached out to MAT beneficiaries across three LGAs in Oyo State (Ibadan North, Afijio, Oyo West) to set up interview times.</div><div class="b-result">Explained the AgFin project's goals around agricultural finance and women agri‑preneurs clearly, achieving a 95% response rate.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Used digital data collection tools (KoboCollect) to record responses accurately, even in areas with poor network connectivity.</div><div class="b-result">Probed unclear answers to get the full picture and made sure data was solid before moving on.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Reviewed every survey response at the end of each interview, fixed errors, and confirmed completeness before uploading to the central server.</div><div class="b-result">Cut error rates by 30% compared to previous project cycles and kept data secure during transmission.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">03</div>
+          <div class="exp-titles">
+            <span class="exp-role">Consultant, M&amp;E Officer</span>
+            <span class="exp-org">AKILIMO Nigeria Association (IITA‑ACAI Funded) · Abeokuta, Ogun State</span>
+          </div>
+          <span class="exp-period">May 2024 – Nov 2024</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Delivered IT consultancy to help farmers and stakeholders adopt AKILIMO digital tools.</div><div class="b-result">Showed them how to use tech to make better decisions on the farm — better yields, less waste, more profit.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Developed and ran training sessions and workshops for farmers and agricultural practitioners in the south‑west value chain.</div><div class="b-result">Covered what the tools do, how they work, and why they matter — lifted digital literacy by 65% (tested before and after).</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Provided hands‑on technical help in the field, fixing issues or walking farmers through them directly.</div><div class="b-result">Got more farmers comfortable with the tools and boosted adoption rates.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Worked with the AKILIMO team to collect and analyze feedback from end‑users.</div><div class="b-result">Identified friction points and sent 3 rounds of suggestions that led to actual tool improvements.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Marketed AKILIMO tools to farmers, cooperatives, and industry partners — brochures, presentations, digital content, field demos and trials.</div><div class="b-result">Built relationships with government agencies, NGOs and farmer associations; helped increase tool adoption by 40% during the contract.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">04</div>
+          <div class="exp-titles">
+            <span class="exp-role">Monitoring &amp; Evaluation Officer</span>
+            <span class="exp-org">GIZ Green Innovation Programme (GIAE) under GOPA‑AFC, Cassava Value Chain</span>
+          </div>
+          <span class="exp-period">Feb 2022 – Jan 2024</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Led the development and oversight of M&amp;E frameworks for cassava value chain projects, aligned with program goals and GIZ donor rules.</div><div class="b-result">Tracked over 80,000 beneficiaries across Ogun and Oyo States.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Created data collection strategies using surveys, interviews, and focus group discussions.</div><div class="b-result">Captured both measurable data and farmer narratives, used to track performance and guide decisions.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Organized and facilitated capacity‑building workshops for Ogun and Oyo State ADPs, agricultural institutions, and private partners — co‑leading GAP, FBS, Contract Farming, CBS, OD and MOET, including a 5‑month weekly technical working group series.</div><div class="b-result">Reached 4,500+ agricultural extension officers and professionals.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Planned regular field visits across project sites to check progress and spot problems early, giving hands‑on technical support on data collection, analysis and reporting.</div><div class="b-result">Partnered with M&amp;E units on rice, maize and potato value chains to collect monthly baseline data on employment, project impact and migration trends.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Built strong partnerships with OGADEP extension workers and the Oyo State Ministry of Agriculture, leading a team of 118 extension agents and 85 enumerators.</div><div class="b-result">Handled field monitoring, resource allocation, and quality reporting — never missed a reporting deadline in two years.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Helped develop project proposals, work plans, concept notes and budgets, building M&amp;E in from the start.</div><div class="b-result">Set up organized filing systems and databases; M&amp;E input helped improve project accountability by about 25%.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">05</div>
+          <div class="exp-titles">
+            <span class="exp-role">Junior Assistant, M&amp;E</span>
+            <span class="exp-org">GIZ Green Innovation Programme (GIAE) under GOPA‑AFC</span>
+          </div>
+          <span class="exp-period">Mar 2019 – Jan 2022</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Helped design M&amp;E plans by contributing to data collection tools, databases, and reporting templates.</div><div class="b-result">Made sure everything lined up with project goals so progress in the value chain could be tracked properly.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Handled data collection, cleaning, and analysis — spotting trends, gaps, and improvement areas.</div><div class="b-result">Two trends identified changed the project's direction, saving time on the wrong approach in the value chain.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Coordinated logistics for M&amp;E workshops, meetings, and training sessions.</div><div class="b-result">Ran 15+ events with over 300 participants, keeping things smooth so people could focus on learning, not admin problems.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Prepared reports and presentations for internal teams and external stakeholders, turning complex M&amp;E data into clear takeaways.</div><div class="b-result">Verified data from extension agents, cutting duplicate and incomplete entries by 35% and following up on missing info by phone or email.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">06</div>
+          <div class="exp-titles">
+            <span class="exp-role">M&amp;E Intern</span>
+            <span class="exp-org">GIZ Green Innovation Programme (GIAE), Cassava Value Chain</span>
+          </div>
+          <span class="exp-period">Sep 2016 – Mar 2019</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Actively engaged in a range of M&amp;E tasks under the guidance of senior staff.</div><div class="b-result">Gained hands‑on experience in data collection, entry, and analysis, contributing to accurate project monitoring and building foundational M&amp;E expertise.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Supported the comprehensive documentation of project activities, achievements, and lessons learned.</div><div class="b-result">Ensured thorough records that enhanced monitoring, evaluation, and learning processes, and facilitated knowledge sharing for future projects.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Assisted in planning and coordinating M&amp;E‑related events and meetings — scheduling, logistics, and documentation.</div><div class="b-result">Ensured smooth execution, high participant engagement, and effective communication of project objectives and outcomes.</div></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="exp-item reveal">
+        <summary>
+          <div class="exp-num">07</div>
+          <div class="exp-titles">
+            <span class="exp-role">Data / IT Administrator</span>
+            <span class="exp-org">Get‑IT Consultant Agency · Abeokuta, Ogun State</span>
+          </div>
+          <span class="exp-period">Jan 2013 – Sep 2016</span>
+          <div class="exp-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        </summary>
+        <div class="exp-body">
+          <div class="exp-sub">Responsibilities &amp; Achievements</div>
+          <div class="exp-bullets">
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Managed and developed a web site/app, easing the flow of client traffic on the app server.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Managed and maintained the organization's hardware and software infrastructure.</div><div class="b-result">Ensured seamless operations and reduced downtime, supporting overall efficiency and productivity.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Oversaw system administration tasks such as setting up user accounts and troubleshooting issues.</div><div class="b-result">Ensured employees had uninterrupted access to essential tools and services, improving workflow and efficiency.</div></div></div>
+            <div class="exp-bullet"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div><div><div class="b-task">Implemented and monitored data security measures.</div><div class="b-result">Safeguarded sensitive information, protected against cyber threats, and maintained the trust of customers and stakeholders.</div></div></div>
+            <div class="exp-bullet is-achv"><div class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 8c4 2 12 2 14 0"/></svg></div><div><div class="b-task">Contributed to the development of ICT strategies.</div><div class="b-result">Ensured the organization's technology aligned with its business goals, supporting growth, innovation, and competitive advantage.</div></div></div>
+          </div>
+        </div>
+      </details>
+
     </div>
   </div>
 </section>
